@@ -9,6 +9,7 @@
     <h1>Bienvenue</h1>
     <div id="app">
       <div v-for="produit in produits" :key="produit.id" class="card">
+        <img v-bind:src="produit.image" />
         <h3>{{ produit.nom }}</h3>
         <p>Prix : {{ produit.prix }} €</p>
         <p v-show="estActif">Details : {{produit.detail}}</p>
@@ -47,12 +48,43 @@
                 nom: "ordinateur",
                 prix: 899,
                 detail: "bla bla bla bla",
+                image: "@/assets/laptop.png",
               },
-              { id: 2, nom: "souris", prix: 50, detail: "bla bla bla bla" },
-              { id: 3, nom: "clavier", prix: 100, detail: "bla bla bla bla" },
-              { id: 4, nom: "écran", prix: 350, detail: "bla bla bla bla" },
-              { id: 5, nom: "casque", prix: 120, detail: "bla bla bla bla" },
-              { id: 6, nom: "webcam", prix: 65, detail: "bla bla bla bla" },
+              {
+                id: 2,
+                nom: "souris",
+                prix: 50,
+                detail: "bla bla bla bla",
+                image: "\src\assets\mouse.webp",
+              },
+              {
+                id: 3,
+                nom: "clavier",
+                prix: 100,
+                detail: "bla bla bla bla",
+                image: "\src\assets\keeb.png",
+              },
+              {
+                id: 4,
+                nom: "écran",
+                prix: 350,
+                detail: "bla bla bla bla",
+                image: "\src\assets\monitor.png",
+              },
+              {
+                id: 5,
+                nom: "casque",
+                prix: 120,
+                detail: "bla bla bla bla",
+                image: "\src\assets\headset.png",
+              },
+              {
+                id: 6,
+                nom: "webcam",
+                prix: 65,
+                detail: "bla bla bla bla",
+                image: "\src\assets\webcam.png",
+              },
             ],
           };
         },
@@ -75,15 +107,26 @@
       }).mount("#app");
     </script>
     <style>
+      body {
+        font-family: "Coolvetica";
+      }
       .card {
+        text-align: center;
         background-color: antiquewhite;
-        color: cadetblue;
+        color: #333333;
         width: 200px;
         height: 200px;
+        border-radius: 5px;
       }
       #app {
         display: flex;
         justify-content: space-evenly;
+      }
+      button {
+        background-color: #666a86;
+        color: #efefef;
+        border-radius: 5px;
+        border: 0px;
       }
     </style>
   </body>
