@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-for="produit in produits" :key="produit.id" class="card">
+        <h3>{{ produit.nom }}</h3>
+        <p>Prix : {{ produit.prix }} €</p>
+        <p v-show="estActif">Details : {{produit.detail}}</p>
+        <button @click="estActif=!estActif">Masquer/Afficher Details</button>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            estActif: false,
+            produits: [
+              {
+                id: 1,
+                nom: "ordinateur",
+                prix: 899,
+                detail: "bla bla bla bla",
+              },
+              { id: 2, nom: "souris", prix: 50, detail: "bla bla bla bla" },
+              { id: 3, nom: "clavier", prix: 100, detail: "bla bla bla bla" },
+              { id: 4, nom: "écran", prix: 350, detail: "bla bla bla bla" },
+              { id: 5, nom: "casque", prix: 120, detail: "bla bla bla bla" },
+              { id: 6, nom: "webcam", prix: 65, detail: "bla bla bla bla" },
+            ],
+          };
+        },
+      }).mount("#app");
+    </script>
+    <style>
+      .card {
+        background-color: antiquewhite;
+        color: cadetblue;
+        width: 200px;
+        height: 200px;
+      }
+      #app {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    </style>
+  </body>
+</html>
