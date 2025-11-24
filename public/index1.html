@@ -3,22 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shop - Vue</title>
+    <title>Shop</title>
   </head>
   <body>
+    <h1>Bienvenue</h1>
     <div id="app">
       <div v-for="produit in produits" :key="produit.id" class="card">
         <h3>{{ produit.nom }}</h3>
         <p>Prix : {{ produit.prix }} €</p>
         <p v-show="estActif">Details : {{produit.detail}}</p>
         <button @click="estActif=!estActif">Masquer/Afficher Details</button>
+        <button @click="supprimer(produit.id)">
+          <font-awesome-icon :icon="['fas','trash-can']" />
+          Supprimer
+        </button>
       </div>
     </div>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script>
-      const { createApp } = Vue;
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+      import { library } from "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-svg-core@6.5.1/+esm";
+      import { FontAwesomeIcon } from "https://cdn.jsdelivr.net/npm/@fortawesome/vue-fontawesome@3/+esm";
+      import { fas } from "https://cdn.jsdelivr.net/npm/@fortawesome/free-solid-svg-icons@6.5.1/+esm";
+      import { far } from "https://cdn.jsdelivr.net/npm/@fortawesome/free-regular-svg-icons@6.5.1/+esm";
+      import { fab } from "https://cdn.jsdelivr.net/npm/@fortawesome/free-brands-svg-icons@6.5.1/+esm";
+
+      library.add(fas, far, fab);
 
       createApp({
+        components: {
+          FontAwesomeIcon,
+        },
         data() {
           return {
             estActif: false,
@@ -36,6 +50,11 @@
               { id: 6, nom: "webcam", prix: 65, detail: "bla bla bla bla" },
             ],
           };
+        },
+        methods: {
+          supprimer(produitId) {
+            this.produits = this.produits.filter((item) => item.id !== produitId);
+          },
         },
       }).mount("#app");
     </script>
