@@ -6,12 +6,27 @@
     <title>Shop</title>
   </head>
   <body>
+    <script>
+      import { library } from "@fortawesome/fontawesome-svg-core";
+
+      /* import all the icons in Free Solid, Free Regular, and Brands styles */
+      import { fas } from "@fortawesome/free-solid-svg-icons";
+      import { far } from "@fortawesome/free-regular-svg-icons";
+      import { fab } from "@fortawesome/free-brands-svg-icons";
+
+      library.add(fas, far, fab);
+    </script>
+    <h1>Bienvenue</h1>
     <div id="app">
       <div v-for="produit in produits" :key="produit.id" class="card">
         <h3>{{ produit.nom }}</h3>
         <p>Prix : {{ produit.prix }} €</p>
         <p v-show="estActif">Details : {{produit.detail}}</p>
         <button @click="estActif=!estActif">Masquer/Afficher Details</button>
+        <button @click="supprimer">
+          <font-awesome-icon icon="fa-solid fa-trash-can" />
+          Supprimer
+        </button>
       </div>
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
