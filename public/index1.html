@@ -6,37 +6,41 @@
     <title>Shop</title>
   </head>
   <body>
-    <script>
-      import { library } from "@fortawesome/fontawesome-svg-core";
-
-      /* import all the icons in Free Solid, Free Regular, and Brands styles */
-      import { fas } from "@fortawesome/free-solid-svg-icons";
-      import { far } from "@fortawesome/free-regular-svg-icons";
-      import { fab } from "@fortawesome/free-brands-svg-icons";
-
-      library.add(fas, far, fab);
-    </script>
     <h1>Bienvenue</h1>
     <div id="app">
       <div v-for="produit in produits" :key="produit.id" class="card">
         <h3>{{ produit.nom }}</h3>
         <p>Prix : {{ produit.prix }} €</p>
         <p v-show="estActif">Details : {{produit.detail}}</p>
-        <button @click="estActif=!estActif">Masquer/Afficher Details</button>
-        <button @click="supprimer">
-          <font-awesome-icon icon="fa-solid fa-trash-can" />
+        <button @click="estActif=!estActif">Details</button>
+        <button @click="ajouter(produit.id)">
+          <font-awesome-icon :icon="['fas','basket-shopping']" />
+          Panier
+        </button>
+        <button @click="supprimer(produit.id)">
+          <font-awesome-icon :icon="['fas','trash-can']" />
           Supprimer
         </button>
       </div>
     </div>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script>
-      const { createApp } = Vue;
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+      import { library } from "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-svg-core@6.5.1/+esm";
+      import { FontAwesomeIcon } from "https://cdn.jsdelivr.net/npm/@fortawesome/vue-fontawesome@3/+esm";
+      import { fas } from "https://cdn.jsdelivr.net/npm/@fortawesome/free-solid-svg-icons@6.5.1/+esm";
+      import { far } from "https://cdn.jsdelivr.net/npm/@fortawesome/free-regular-svg-icons@6.5.1/+esm";
+      import { fab } from "https://cdn.jsdelivr.net/npm/@fortawesome/free-brands-svg-icons@6.5.1/+esm";
+
+      library.add(fas, far, fab);
 
       createApp({
+        components: {
+          FontAwesomeIcon,
+        },
         data() {
           return {
             estActif: false,
+            panier: [],
             produits: [
               {
                 id: 1,
@@ -51,6 +55,22 @@
               { id: 6, nom: "webcam", prix: 65, detail: "bla bla bla bla" },
             ],
           };
+        },
+        methods: {
+          ajouter(produitId) {
+            const prod = this.produits.find((item) => item.id === produitId);
+
+            if (prod) {
+              this.panier = [...this.panier, prod];
+              alert("Produit " + prod.nom + " ajouté au panier.");
+              console.log(this.panier);
+            }
+          },
+          supprimer(produitId) {
+            this.produits = this.produits.filter(
+              (item) => item.id !== produitId
+            );
+          },
         },
       }).mount("#app");
     </script>
