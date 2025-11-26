@@ -11,7 +11,7 @@
       <div v-for="produit in produits" :key="produit.id" class="card">
         <img v-bind:src="produit.image" />
         <h3>{{ produit.nom }}</h3>
-        <p>Prix : {{ produit.prix }} €</p>
+        <p :style="{ color: couleurprix(produit.prix) }">Prix : {{ produit.prix }} €</p>
         <p v-show="estActif">Details : {{produit.detail}}</p>
         <button @click="estActif=!estActif">Details</button>
         <button @click="ajouter(produit.id)">
@@ -22,6 +22,7 @@
           <font-awesome-icon :icon="['fas','trash-can']" />
           Supprimer
         </button>
+      </div>
       </div>
     </div>
     <script type="module">
@@ -50,43 +51,127 @@
                 id: 1,
                 nom: "ordinateur",
                 prix: 899,
-                detail: "bla bla bla bla",
+                detail: "Ordinateur portable puissant pour les professionnels et les étudiants.",
                 image: "images/laptop.png",
               },
               {
                 id: 2,
                 nom: "souris",
                 prix: 50,
-                detail: "bla bla bla bla",
-                image: "images/mouse.webp",
+                detail: "Souris ergonomique avec capteur haute précision.",
+                image: "images/mouse.png",
               },
               {
                 id: 3,
                 nom: "clavier",
-                prix: 100,
-                detail: "bla bla bla bla",
+                prix: 99,
+                detail: "Clavier mécanique avec rétroéclairage RGB.",
                 image: "images/keeb.png",
               },
               {
                 id: 4,
                 nom: "écran",
                 prix: 350,
-                detail: "bla bla bla bla",
+                detail: "Écran 4K Ultra HD avec des couleurs éclatantes.",
                 image: "images/monitor.png",
               },
               {
                 id: 5,
                 nom: "casque",
                 prix: 120,
-                detail: "bla bla bla bla",
+                detail: "Casque audio avec réduction de bruit active.",
                 image: "images/headset.png",
               },
               {
                 id: 6,
                 nom: "webcam",
                 prix: 65,
-                detail: "bla bla bla bla",
+                detail: "Webcam HD avec microphone intégré.",
                 image: "images/webcam.png",
+              },
+              {
+                id: 7,
+                nom: "casque gaming",
+                prix: 140,
+                detail: "Casque gaming avec son surround 7.1.",
+                image: "images/headset1.png",
+              },
+              {
+                id: 8,
+                nom: "casque sans fil",
+                prix: 150,
+                detail: "Casque sans fil avec autonomie de 20 heures.",
+                image: "images/headset2.png",
+              },
+              {
+                id: 9,
+                nom: "casque studio",
+                prix: 180,
+                detail: "Casque de studio pour une qualité sonore exceptionnelle.",
+                image: "images/headset3.webp",
+              },
+              {
+                id: 10,
+                nom: "clavier mécanique",
+                prix: 220,
+                detail: "Clavier mécanique haut de gamme avec switches personnalisables.",
+                image: "images/keyboard1.png",
+              },
+              {
+                id: 11,
+                nom: "clavier ergonomique",
+                prix: 60,
+                detail: "Clavier ergonomique idéal pour les espaces réduits.",
+                image: "images/keyboard2.jpg",
+              },
+              {
+                id: 12,
+                nom: "clavier RGB",
+                prix: 170,
+                detail: "Clavier RGB avec éclairage personnalisable.",
+                image: "images/keyboard3.jpg",
+              },
+              {
+                id: 13,
+                nom: "ordinateur portable",
+                prix: 800,
+                detail: "Ordinateur portable léger et performant.",
+                image: "images/laptop1.jpg",
+              },
+              {
+                id: 14,
+                nom: "ordinateur gamer",
+                prix: 950,
+                detail: "Ordinateur gamer avec carte graphique dédiée.",
+                image: "images/laptop2.png",
+              },
+              {
+                id: 15,
+                nom: "souris gaming",
+                prix: 80,
+                detail: "Souris gaming avec capteur ultra précis.",
+                image: "images/mouse1.jpg",
+              },
+              {
+                id: 16,
+                nom: "souris sans fil",
+                prix: 75,
+                detail: "Souris sans fil avec connectivité Bluetooth.",
+                image: "images/mouse2.jpg",
+              },
+              {
+                id: 17,
+                nom: "souris ergonomique",
+                prix: 90,
+                detail: "Souris ergonomique pour un confort optimal.",
+                image: "images/webcam1.webp",
+              },
+              {
+                id: 18,
+                nom: "webcam 4K",
+                prix: 400,
+                detail: "Webcam 4K pour des vidéos de haute qualité.",
+                image: "images/webcam2.webp",
               },
             ],
           };
@@ -106,34 +191,70 @@
               (item) => item.id !== produitId
             );
           },
+          couleurprix(prix) {
+            if (prix > 100) {
+              return "red";
+            } else {
+              return "green";
+            }
+          },
         },
       }).mount("#app");
     </script>
     <style>
       body {
-        font-family: "Coolvetica";
+        font-family: "Coolvetica", sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
       }
       .card {
         text-align: center;
-        background-color: antiquewhite;
+        background-color: #ffffff;
         color: #333333;
         width: 300px;
-        height: 300px;
-        border-radius: 5px;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
       }
       #app {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 7px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+        justify-items: center;
       }
       button {
         background-color: #666a86;
         color: #efefef;
-        border-radius: 5px;
-        border: 0px;
+        border-radius: 8px;
+        border: none;
+        padding: 10px 15px;
+        margin: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #4a4e69;
       }
       img {
         width: 150px;
+        height: 150px;
+        object-fit: contain;
+        margin-bottom: 15px;
+      }
+      h3 {
+        margin: 10px 0;
+        color: #2c3e50;
       }
     </style>
   </body>
